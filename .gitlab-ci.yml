@@ -41,7 +41,10 @@ tests:debian:
   <<: *prepare_env
   script:
     - apt-get -qqy purge bubblewrap
+    - apt-get update
+    - apt-get -qqy install python3-pytest
     - ffmpeg -version
+    - su - mat2 -c "pytest-3"
     - su - mat2 -c "python3-coverage run --branch -m unittest discover -s tests/"
     - su - mat2 -c "python3-coverage report --fail-under=95 -m --include 'libmat2/*'"
 
